@@ -26,8 +26,8 @@ const getActaById = async (req, res) => {
 // Crear un nuevo acta
 const createActa = async (req, res) => {
     try {
-        const acta = new Acta(req.body);
-        await acta.save();
+        const acta = new Acta(req.body);  // `req.body` debe contener todos los campos necesarios
+        await acta.save();  // `totalVotos` se calcula automáticamente aquí
         res.status(201).json(acta);
     } catch (error) {
         res.status(500).json({ error: 'Error al crear el acta' });
@@ -37,15 +37,19 @@ const createActa = async (req, res) => {
 // Actualizar un acta existente
 const updateActa = async (req, res) => {
     try {
-        const acta = await Acta.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const acta = await Acta.findById(req.params.id);
         if (!acta) {
             return res.status(404).json({ error: 'Acta no encontrada' });
         }
+        Object.assign(acta, req.body);  // Actualiza el acta con los datos del request
+        await acta.save();  // `totalVotos` se recalcula automáticamente aquí
         res.json(acta);
     } catch (error) {
+        
         res.status(500).json({ error: 'Error al actualizar el acta' });
     }
 };
+
 
 // Eliminar un acta existente
 const deleteActa = async (req, res) => {

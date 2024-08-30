@@ -1,4 +1,4 @@
-import {Schema, model} from "mongoose";
+import { Schema, model } from "mongoose";
 
 const actaSchema = new Schema({
     numeroActa: {
@@ -35,9 +35,22 @@ const actaSchema = new Schema({
     },
     totalVotos: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     }
 });
 
-export default model('Acta', actaSchema);
+// Método para calcular el total de votos
+actaSchema.methods.calculateTotalVotos = function() {
+    this.totalVotos = this.lista1 + this.lista2 + this.lista3 + this.votosBlancos + this.votosNulos;
+};
 
+// Hook pre-save para calcular totalVotos antes de guardar
+actaSchema.pre('save', function(next) {
+    this.calculateTotalVotos();
+    next();
+});
+
+const Acta = model('Acta', actaSchema);
+
+export default Acta;
