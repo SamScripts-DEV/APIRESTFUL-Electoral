@@ -37,6 +37,22 @@ const actaSchema = new Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    papeletasEntregadas: {
+        type: Number,
+        required: true
+    },
+    papeletasDevueltas: {
+        type: Number,
+        required: true
+    },
+    totalEmpadronados: {
+        type: Number,
+        required: true
+    },
+    totalElectores: {
+        type: Number,
+        required: true
     }
 });
 
