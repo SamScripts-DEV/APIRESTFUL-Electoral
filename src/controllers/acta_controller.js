@@ -30,6 +30,8 @@ const createActa = async (req, res) => {
         await acta.save();  // `totalVotos` se calcula automáticamente aquí
         res.status(201).json(acta);
     } catch (error) {
+        console.log(error);
+        
         res.status(500).json({ error: 'Error al crear el acta' });
     }
 };

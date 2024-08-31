@@ -35,7 +35,7 @@ const actaSchema = new Schema({
     },
     totalVotos: {
         type: Number,
-        required: true,
+        
         default: 0
     },
     papeletasEntregadas: {

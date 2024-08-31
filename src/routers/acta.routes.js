@@ -12,7 +12,7 @@ const router = Router()
 
 router.get('/actas', getAllActas)
 router.get('/acta/:id', getActaById);
-router.post('/new-acta', createActa);
+router.post('/registrar', createActa);
 router.put('/acta/:id', updateActa);
 router.delete('/acta/:id', deleteActa);
 
